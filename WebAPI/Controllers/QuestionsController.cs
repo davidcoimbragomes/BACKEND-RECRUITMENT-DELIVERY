@@ -22,11 +22,6 @@ namespace WebAPI.Controllers
         blissEntities db = new blissEntities();
 
 
-
-
-
-
-
         [HttpGet]
         [ResponseType(typeof(List<questionModel>))]
         public IHttpActionResult questions(int limit, int offset, string filter)
@@ -81,6 +76,46 @@ namespace WebAPI.Controllers
                 return InternalServerError(new Exception(e.Message));
             }
 
+        }
+
+
+        [HttpGet]
+        [ResponseType(typeof(questionModel))]
+        public IHttpActionResult questions(int question_id)
+        {
+            try
+            {
+
+
+                //get the question
+                questionModel question = db.tbl_question.Select(m => new questionModel
+                {
+                    ID = m.ID,
+                    question = m.question,
+                    image_url = m.image_url,
+                    thumb_url = m.thumb_url,
+                    published_at = m.published_at
+                }).Where(m => m.ID == question_id).FirstOrDefault();
+
+                //get the related choices
+                var choiceslist = db.rel_question_choices.Where(m => m.questionID == question_id);
+
+                //inserts its answers according to the model structure
+                question.Choices = new List<choices>();
+                foreach (rel_question_choices choices in choiceslist)
+                {
+                    if (choices.questionID == question.ID)
+                    {
+                        question.Choices.Add(new choices { choice = choices.tbl_choices.choice, votes = choices.votes });
+                    }
+                }
+
+                return Ok(question);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(new Exception(e.Message));
+            }
         }
 
 
