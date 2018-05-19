@@ -1,0 +1,23 @@
+.svn
+.vs/
+.ide
+ide
+bin
+obj
+*.suo
+*.mine
+*.r*
+*.user
+*.pubxml*
+Thumbs.db
+applicationhost.config
+
+
+# Ignore NuGet Packages
+*.nupkg
+# Ignore the packages folder
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
