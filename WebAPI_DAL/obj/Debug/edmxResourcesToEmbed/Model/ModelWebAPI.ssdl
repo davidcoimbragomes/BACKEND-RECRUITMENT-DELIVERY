@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="blissModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="rel_question_choices">
+    <Key>
+      <PropertyRef Name="questionID" />
+      <PropertyRef Name="choiceID" />
+    </Key>
+    <Property Name="questionID" Type="int" Nullable="false" />
+    <Property Name="choiceID" Type="int" Nullable="false" />
+    <Property Name="votes" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tbl_choices">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="choice" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="tbl_question">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="question" Type="varchar" MaxLength="300" />
+    <Property Name="image_url" Type="varchar" MaxLength="300" />
+    <Property Name="thumb_url" Type="varchar" MaxLength="300" />
+    <Property Name="published_at" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_rel_question_choices_tbl_choices">
+    <End Role="tbl_choices" Type="Self.tbl_choices" Multiplicity="1" />
+    <End Role="rel_question_choices" Type="Self.rel_question_choices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_choices">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="rel_question_choices">
+        <PropertyRef Name="choiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rel_question_choices_tbl_question">
+    <End Role="tbl_question" Type="Self.tbl_question" Multiplicity="1" />
+    <End Role="rel_question_choices" Type="Self.rel_question_choices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_question">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="rel_question_choices">
+        <PropertyRef Name="questionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="blissModelStoreContainer">
+    <EntitySet Name="rel_question_choices" EntityType="Self.rel_question_choices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_choices" EntityType="Self.tbl_choices" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbl_question" EntityType="Self.tbl_question" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_rel_question_choices_tbl_choices" Association="Self.FK_rel_question_choices_tbl_choices">
+      <End Role="tbl_choices" EntitySet="tbl_choices" />
+      <End Role="rel_question_choices" EntitySet="rel_question_choices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rel_question_choices_tbl_question" Association="Self.FK_rel_question_choices_tbl_question">
+      <End Role="tbl_question" EntitySet="tbl_question" />
+      <End Role="rel_question_choices" EntitySet="rel_question_choices" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

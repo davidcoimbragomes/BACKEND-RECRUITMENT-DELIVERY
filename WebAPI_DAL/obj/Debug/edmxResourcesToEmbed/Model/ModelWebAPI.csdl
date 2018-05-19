@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="blissModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="rel_question_choices">
+    <Key>
+      <PropertyRef Name="questionID" />
+      <PropertyRef Name="choiceID" />
+    </Key>
+    <Property Name="questionID" Type="Int32" Nullable="false" />
+    <Property Name="choiceID" Type="Int32" Nullable="false" />
+    <Property Name="votes" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="tbl_choices" Relationship="Self.FK_rel_question_choices_tbl_choices" FromRole="rel_question_choices" ToRole="tbl_choices" />
+    <NavigationProperty Name="tbl_question" Relationship="Self.FK_rel_question_choices_tbl_question" FromRole="rel_question_choices" ToRole="tbl_question" />
+  </EntityType>
+  <EntityType Name="tbl_choices">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="choice" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="rel_question_choices" Relationship="Self.FK_rel_question_choices_tbl_choices" FromRole="tbl_choices" ToRole="rel_question_choices" />
+  </EntityType>
+  <EntityType Name="tbl_question">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="question" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="image_url" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="thumb_url" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="published_at" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="rel_question_choices" Relationship="Self.FK_rel_question_choices_tbl_question" FromRole="tbl_question" ToRole="rel_question_choices" />
+  </EntityType>
+  <Association Name="FK_rel_question_choices_tbl_choices">
+    <End Role="tbl_choices" Type="Self.tbl_choices" Multiplicity="1" />
+    <End Role="rel_question_choices" Type="Self.rel_question_choices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_choices">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="rel_question_choices">
+        <PropertyRef Name="choiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rel_question_choices_tbl_question">
+    <End Role="tbl_question" Type="Self.tbl_question" Multiplicity="1" />
+    <End Role="rel_question_choices" Type="Self.rel_question_choices" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_question">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="rel_question_choices">
+        <PropertyRef Name="questionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="blissEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="rel_question_choices" EntityType="Self.rel_question_choices" />
+    <EntitySet Name="tbl_choices" EntityType="Self.tbl_choices" />
+    <EntitySet Name="tbl_question" EntityType="Self.tbl_question" />
+    <AssociationSet Name="FK_rel_question_choices_tbl_choices" Association="Self.FK_rel_question_choices_tbl_choices">
+      <End Role="tbl_choices" EntitySet="tbl_choices" />
+      <End Role="rel_question_choices" EntitySet="rel_question_choices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rel_question_choices_tbl_question" Association="Self.FK_rel_question_choices_tbl_question">
+      <End Role="tbl_question" EntitySet="tbl_question" />
+      <End Role="rel_question_choices" EntitySet="rel_question_choices" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

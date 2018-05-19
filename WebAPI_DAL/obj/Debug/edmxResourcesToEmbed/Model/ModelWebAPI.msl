@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="blissModelStoreContainer" CdmEntityContainer="blissEntities">
+    <EntitySetMapping Name="rel_question_choices">
+      <EntityTypeMapping TypeName="blissModel.rel_question_choices">
+        <MappingFragment StoreEntitySet="rel_question_choices">
+          <ScalarProperty Name="questionID" ColumnName="questionID" />
+          <ScalarProperty Name="choiceID" ColumnName="choiceID" />
+          <ScalarProperty Name="votes" ColumnName="votes" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_choices">
+      <EntityTypeMapping TypeName="blissModel.tbl_choices">
+        <MappingFragment StoreEntitySet="tbl_choices">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="choice" ColumnName="choice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_question">
+      <EntityTypeMapping TypeName="blissModel.tbl_question">
+        <MappingFragment StoreEntitySet="tbl_question">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="image_url" ColumnName="image_url" />
+          <ScalarProperty Name="thumb_url" ColumnName="thumb_url" />
+          <ScalarProperty Name="published_at" ColumnName="published_at" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

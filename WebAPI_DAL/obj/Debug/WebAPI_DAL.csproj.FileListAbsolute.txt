@@ -1,0 +1,10 @@
+C:\Users\dgomes\Documents\Visual Studio 2015\Projects\WebAPI\WebAPI_DAL\bin\Debug\WebAPI_DAL.dll.config
+C:\Users\dgomes\Documents\Visual Studio 2015\Projects\WebAPI\WebAPI_DAL\bin\Debug\WebAPI_DAL.dll
+C:\Users\dgomes\Documents\Visual Studio 2015\Projects\WebAPI\WebAPI_DAL\bin\Debug\WebAPI_DAL.pdb
+C:\Users\dgomes\Documents\Visual Studio 2015\Projects\WebAPI\WebAPI_DAL\bin\Debug\EntityFramework.dll
+C:\Users\dgomes\Documents\Visual Studio 2015\Projects\WebAPI\WebAPI_DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\dgomes\Documents\Visual Studio 2015\Projects\WebAPI\WebAPI_DAL\bin\Debug\EntityFramework.xml
+C:\Users\dgomes\Documents\Visual Studio 2015\Projects\WebAPI\WebAPI_DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\dgomes\Documents\Visual Studio 2015\Projects\WebAPI\WebAPI_DAL\obj\Debug\WebAPI_DAL.csprojResolveAssemblyReference.cache
+C:\Users\dgomes\Documents\Visual Studio 2015\Projects\WebAPI\WebAPI_DAL\obj\Debug\WebAPI_DAL.dll
+C:\Users\dgomes\Documents\Visual Studio 2015\Projects\WebAPI\WebAPI_DAL\obj\Debug\WebAPI_DAL.pdb
