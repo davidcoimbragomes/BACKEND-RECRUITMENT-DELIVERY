@@ -118,6 +118,53 @@ namespace WebAPI.Controllers
             }
         }
 
+        [HttpPost]
+        public IHttpActionResult questions(questionModel questionParameter)
+        {
+            try
+            {
 
+                int ChoiceID;
+                tbl_question DBquestion = new tbl_question();
+
+                DBquestion.question = questionParameter.question;
+                DBquestion.image_url = questionParameter.image_url;
+                DBquestion.thumb_url = questionParameter.thumb_url;
+                DBquestion.published_at = DateTime.Now;
+
+                //The question is added to the DB
+                db.tbl_question.Add(DBquestion);
+                db.SaveChanges();
+
+                //for all the answers/choices...
+                foreach (choices choices in questionParameter.Choices)
+                {
+                    //if the choice doesn't exist on the answers table, it is added
+                    if (!db.tbl_choices.Any(m => m.choice == choices.choice))
+                    {
+                        tbl_choices DBchoices = new tbl_choices();
+                        DBchoices.choice = choices.choice;
+                        db.tbl_choices.Add(DBchoices);
+                        db.SaveChanges();
+                        ChoiceID = DBchoices.ID;
+                    }
+                    //otherwise get the id 
+                    else
+                    {
+                        ChoiceID = db.tbl_choices.Where(m => m.choice == choices.choice).Select(m => m.ID).FirstOrDefault();
+                    }
+
+                    //and the answer and its votation is added in the relational table related to the question 
+                    db.rel_question_choices.Add(new rel_question_choices { questionID = DBquestion.ID, choiceID = ChoiceID, votes = choices.votes });
+                    db.SaveChanges();
+
+                }
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(new Exception(e.Message));
+            }
+        }
     }
 }
